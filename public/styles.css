@@ -1,0 +1,13 @@
+body{
+    /*background:green;*/
+    color: #000;
+    max-width: 600px;
+    margin: auto;
+    text-align: justify;
+    text-justify: inter-word;
+    font-family: sans-serif;
+}
+
+p{
+    line-height: 1.6;
+}
