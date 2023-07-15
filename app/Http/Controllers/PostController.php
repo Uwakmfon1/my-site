@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function signin()
+    {
+        return view('posts.signin');
+    }
     public function index()
     {
         return view('posts.index',[

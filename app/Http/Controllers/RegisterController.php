@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 
 class RegisterController extends Controller
 {
     public function create()
     {
-       return view('register.create');
+        return view('register.create');
     }
 
     public function store()
@@ -16,17 +18,19 @@ class RegisterController extends Controller
 
         $attributes = request()->validate([
             'name' => 'required|max:255',
-            'username'=>'required|min:3|max:255|unique:users,username',
+            'username' => 'required|min:3|max:255|unique:users,username',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|min:7|max:255'
         ]);
 
-//        $attributes['password'] = md5($attributes['password']);
+        $attributes['password'] = Hash::make($attributes['password']);
 
-       $user =  User::create($attributes);
-//       ddd($user);
+
+        $user = User::create($attributes);
+
 
         auth()->login($user);
-      return redirect('/')->with('success','Your account has been created');
+//        return redirect('/')->with('success', 'Your account has been created');
+        return redirect('/login')->with('success', 'your account has been created');
     }
 }
