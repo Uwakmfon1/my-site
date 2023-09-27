@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
 
 
 class RegisterController extends Controller
@@ -15,16 +18,14 @@ class RegisterController extends Controller
 
     public function store()
     {
-
         $attributes = request()->validate([
             'name' => 'required|max:255',
             'username' => 'required|min:3|max:255|unique:users,username',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|min:7|max:255'
+            'password' => 'required|min:7|max:255',
         ]);
 
         $attributes['password'] = Hash::make($attributes['password']);
-
 
         $user = User::create($attributes);
 
